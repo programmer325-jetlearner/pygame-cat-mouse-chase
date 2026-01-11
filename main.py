@@ -8,10 +8,8 @@ score=0
 cat_x=200
 cat_y=200
 mouse_x=150
-mouse_y=300
-random_x=random.randint(-500,500)
-random_y=random.randint(-500,500)                 
-player_speed=7
+mouse_y=300              
+player_speed=1
 cat=pygame.image.load("images/cat.png")
 mouse=pygame.image.load("images/mouse.png")
 bg=pygame.image.load("images/bg.jpg")
@@ -43,16 +41,21 @@ while True:
     if keys[pygame.K_RIGHT]:
         cat_x+=player_speed
 
-    if cat_x==mouse_y-20 or  cat_y==mouse_x-20 or cat_y==mouse_y-20 or cat_x==mouse_x-20:
-      random_x=random.randint(-250,250)
-      random_y=random.randint(-250,200) 
-      mouse_x=random_x
-      mouse_y=random_y
-      score+=1
+    # Create rectangles for collision
+    cat_rect = pygame.Rect(cat_x, cat_y, cat.get_width(), cat.get_height())
+    mouse_rect = pygame.Rect(mouse_x, mouse_y, mouse.get_width(), mouse.get_height())
+
+# Collision check
+    if cat_rect.colliderect(mouse_rect):
+      mouse_x = random.randint(0, 550)
+      mouse_y = random.randint(0, 550)
+      score += 1
 
 
 
-pygame.quit
+
+
+pygame.quit()
 
 
 
